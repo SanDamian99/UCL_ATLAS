@@ -6,6 +6,9 @@ from streamlit_folium import st_folium
 def main():
     st.set_page_config(page_title="Global Palliative Care Atlas", layout="wide")
     
+    # Display the University College London logo
+    st.image("University_College_London_logo.svg.png", width=200)
+
     # Page title and introduction
     st.title("Global Palliative Care Atlas")
     st.write("""
@@ -16,7 +19,6 @@ def main():
 
     # 1. Sample Data
     # --------------
-    # Simulate a small dataset of palliative care communities:
     data = {
         "Community Name": ["Hope Hospice Center", "Canadian Comfort Care", "Amigos Solidarios"],
         "Country": ["Mexico", "Canada", "Peru"],
@@ -42,7 +44,7 @@ def main():
     # 2. Sidebar for Filters and Other Functionalities
     # ------------------------------------------------
     st.sidebar.header("Filter & Exploration Options")
-    
+
     # Filter by Country
     selected_country = st.sidebar.multiselect(
         "Select Country(ies):",
@@ -51,7 +53,6 @@ def main():
     )
     
     # Filter by City
-    # (Note: The available city options update based on the chosen country/ies)
     filtered_df_country = df[df["Country"].isin(selected_country)]
     selected_city = st.sidebar.multiselect(
         "Select City(ies):",
@@ -61,7 +62,7 @@ def main():
     
     # Filter the DataFrame using the selected country and city
     filtered_df = filtered_df_country[filtered_df_country["City"].isin(selected_city)]
-    
+
     # 3. Display Filtered Data
     # ------------------------
     st.subheader("List of Palliative Care Communities")
@@ -74,7 +75,6 @@ def main():
     st.write("Use the map below to explore the approximate location of each community.")
 
     # Create a Folium map centered on a global perspective
-    # (Alternatively, you could automatically center based on the data if you prefer)
     m = folium.Map(location=[20, 0], zoom_start=2)
 
     # Add markers for each location
